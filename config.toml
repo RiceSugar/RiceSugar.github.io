@@ -1,0 +1,88 @@
+baseURL = 'https://ricesugar.github.io/'
+title = '幻梦糖果坊'
+theme = 'hugo-theme-cleanwhite'
+languageCode = "zh-cn"
+
+[params]
+  AuthorName = 'RiceSugar'
+  GitHubUser = 'RiceSugar'
+  Subtitle = '哦耶！'
+  header_image = "img/home-bg.jpg"
+  SEOTitle = "米糖的博客 | RiceSugar Blog"
+  slogan = "在喧闹复杂的世界里，寻找属于自己的宁静"
+
+  image_404 = "img/404-bg.jpg"
+  title_404 = "前面的网页，以后再来探索吧(*￣3￣)╭"
+  omit_categories = true
+
+  # Sidebar settings
+  sidebar_about_description = "米糖，大学牲，杂食动物，什么知识都吃"
+  sidebar_avatar = "img/ricesugar.jpg"
+
+  # featured_tags = true 
+  # featured_condition_size = 1 
+
+  #Enable wechat pay & alipay to allow readers send reward money if they like the articles 
+  reward = true 
+  reward_guide = "请作者干瓶可乐 :-P"
+
+  friends = true
+  bookmarks = false
+  about_me = true
+
+  [params.social]
+  rss            = false 
+  email          = "3329446619@qq.com"
+  #facebook      = "full profile url in facebook"
+  #googleplus    = "full profile url in googleplus"
+  #twitter       = "full profile url in twitter"
+  #linkedin       = "https://www.linkedin.com/in/yourlinkedinid"
+  #stackoverflow  = "https://stackoverflow.com/users/yourstackoverflowid"
+  #instagram     = "full profile url in instagram"
+  github         = "https://github.com/RiceSugar"
+  # wechat         = "img/ricesugar.jpg"
+  #medium        = "full profile url in medium"
+  #slack         = "full workspace url in slack"
+  #pinterest     = "full profile url in pinterest"
+  #reddit        = "full profile url in reddit"
+  #gitlab        = "full profile url in gitlab"
+  #mastodon      = "full profile url in mastodon"
+  #keybase       = "full profile url in keybase"
+  #xing          = "https://www.xing.com/profile/yourxingid"
+  git           = "https://gitee.com/RiceSugar"
+  
+  [[params.friend_link]]
+  # title = "赵化冰的博客"
+  # href =  "https://www.zhaohuabing.com/"
+
+  [[params.bookmark_link]]
+  # title =  "Martin Fowler"
+  # href =  "https://martinfowler.com"
+
+
+  [[params.addtional_menus]]
+  title =  "所有文章"
+  href =  "/archive/"
+  [[params.addtional_menus]]
+  title =  "学习笔记"
+  href =  "/notes/"
+  [[params.addtional_menus]]
+  title =  "わたし?"
+  href =  "/about/"
+
+# [outputFormats.Algolia]
+# baseName = "algolia"
+# isPlainText = true
+# mediaType = "application/json"
+# notAlternative = true
+
+# [params.algolia]
+# vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
+# params = ["categories", "tags"] 
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 2
+    startLevel = 1
+  [markup.highlight]
+    style = "dracula"
