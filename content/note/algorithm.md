@@ -6,120 +6,11 @@ date: 2022-04-14
 slug: "algorithm-note"
 ---
 
----
-## 目录
-- [目录](#目录)
-- [基础算法](#基础算法)
-	- [排序](#排序)
-			- [快速排序](#快速排序)
-			- [归并排序](#归并排序)
-			- [插入排序](#插入排序)
-			- [堆排序](#堆排序)
-	- [二分](#二分)
-			- [左边界](#左边界)
-			- [右边界](#右边界)
-	- [三分](#三分)
-	- [高精度](#高精度)
-			- [预处理](#预处理)
-			- [高精加](#高精加)
-			- [高精减](#高精减)
-			- [高精乘](#高精乘)
-			- [高精除](#高精除)
-	- [位运算](#位运算)
-	- [欧几里得求最大公约数算法](#欧几里得求最大公约数算法)
-	- [数学](#数学)
-- [快读](#快读)
-- [二维差分](#二维差分)
-- [双指针](#双指针)
-- [DP](#dp)
-	- [背包DP](#背包dp)
-			- [01背包](#01背包)
-			- [完全背包](#完全背包)
-	- [线性DP](#线性dp)
-			- [最长上升子序列](#最长上升子序列)
-			- [最长公共子序列](#最长公共子序列)
-	- [树状DP](#树状dp)
-- [数据结构](#数据结构)
-	- [树状数组](#树状数组)
-			- [求父节点与子节点距离](#求父节点与子节点距离)
-			- [更新数组](#更新数组)
-			- [前缀和](#前缀和)
-			- [找到区间最大值](#找到区间最大值)
-	- [ST表](#st表)
-			- [查询](#查询)
-			- [建立](#建立)
-	- [线段树](#线段树)
-			- [豪华define套餐](#豪华define套餐)
-			- [建立](#建立-1)
-			- [更新父节点](#更新父节点)
-			- [变更值](#变更值)
-			- [查询区间值](#查询区间值)
-			- [区间添加](#区间添加)
-			- [区间加和乘混合](#区间加和乘混合)
-	- [最小生成树](#最小生成树)
-	- [Trie字典树](#trie字典树)
-	- [栈](#栈)
-		- [栈的应用](#栈的应用)
-	- [链表](#链表)
-		- [建立](#建立-2)
-		- [输出](#输出)
-		- [删除](#删除)
-		- [查找](#查找)
-- [STL](#stl)
-			- [map \& vector梦幻联动](#map--vector梦幻联动)
-			- [lower\_bound](#lower_bound)
-			- [upper\_bound](#upper_bound)
-			- [string](#string)
-			- [next\_permutation](#next_permutation)
-- [欧氏筛](#欧氏筛)
-- [快速幂](#快速幂)
-- [滑动窗口](#滑动窗口)
-- [字符串](#字符串)
-	- [字符串哈希](#字符串哈希)
-			- [快速比较子串](#快速比较子串)
-	- [KMP](#kmp)
-			- [时间复杂度](#时间复杂度)
-			- [创建next数组](#创建next数组)
-			- [输出子串位置](#输出子串位置)
-			- [应用](#应用)
-	- [manacher求回文串](#manacher求回文串)
-- [图论](#图论)
-	- [建图](#建图)
-	- [遍历图](#遍历图)
-	- [最短路](#最短路)
-			- [Dijkstra算法](#dijkstra算法)
-			- [Floyd算法](#floyd算法)
-			- [spfa算法](#spfa算法)
-	- [分层图](#分层图)
-	- [二分图](#二分图)
-			- [染色法判断](#染色法判断)
-			- [匈牙利算法](#匈牙利算法)
-- [数论](#数论)
-	- [欧拉函数](#欧拉函数)
-	- [线性筛欧拉函数](#线性筛欧拉函数)
-	- [扩展欧几里得算法](#扩展欧几里得算法)
-	- [求逆元](#求逆元)
-	- [中国剩余定理](#中国剩余定理)
-	- [高斯消元解方程组](#高斯消元解方程组)
-	- [求组合数](#求组合数)
-- [博弈论](#博弈论)
-	- [nim问题](#nim问题)
-		- [基础](#基础)
-		- [集合](#集合)
-- [拓扑序列](#拓扑序列)
-- [BFS迷宫最短路](#bfs迷宫最短路)
-- [LCA最近公共祖先](#lca最近公共祖先)
-- [A\*算法](#a算法)
-			- [普通A\*](#普通a)
-			- [IDA\*](#ida)
-
----
----
 ## 基础算法
 
 ### 排序
 
-##### 快速排序
+#### 快速排序
 ```cpp
 void quicksort(int L, int R){
 	if(L >= R) return;
@@ -134,7 +25,7 @@ void quicksort(int L, int R){
 }
 ```
 
-##### 归并排序
+#### 归并排序
 ```cpp
 void mergesort(int L, int R) {
 	if (L >= R) return;
@@ -152,7 +43,7 @@ void mergesort(int L, int R) {
 }
 ```
 
-##### 插入排序
+#### 插入排序
 ```cpp
 void insertsort(int l, int r){
 	for(int i = l; i <= r; ++i){
@@ -167,7 +58,7 @@ void insertsort(int l, int r){
 }
 ```
 
-##### 堆排序
+#### 堆排序
 - 宏定义
 ```cpp
 #define	F (u >> 1)
@@ -221,7 +112,7 @@ while(m--){
 - 这两个都是锁定存在的范围，是否存在需要再加if判断
 
 
-##### 左边界
+#### 左边界
 - 分割区间为[left, mid][mid + 1, right]
 ```cpp
 int bsearch_left(int l, int r)
@@ -236,7 +127,7 @@ int bsearch_left(int l, int r)
 }
 ```
 
-##### 右边界
+#### 右边界
 - 分割区间为[left, mid - 1][mid, right]
 ```cpp
 int bsearch_right(int l, int r)
@@ -274,13 +165,13 @@ void fun(double l, double r) {
 ---
 ### 高精度
 
-##### 预处理
+#### 预处理
 ```cpp
 for (int i = a.size() - 1; i >= 0; i -- ) A.push_back(a[i] - '0');
 for (int i = b.size() - 1; i >= 0; i -- ) B.push_back(b[i] - '0');
 ```
 
-##### 高精加
+#### 高精加
 ```cpp
 vector<int> add(vector<int> &A, vector<int> &B)
 {
@@ -301,7 +192,7 @@ vector<int> add(vector<int> &A, vector<int> &B)
 }
 ```
 
-##### 高精减
+#### 高精减
 ```cpp
 bool cmp(vector<int> &A, vector<int> &B)
 {
@@ -331,7 +222,7 @@ vector<int> sub(vector<int> &A, vector<int> &B)
 }
 ```
 
-##### 高精乘
+#### 高精乘
 
 ```cpp
 vector<int> mul(vector<int> &A, int b)
@@ -353,7 +244,7 @@ vector<int> mul(vector<int> &A, int b)
 
 ```
 
-##### 高精除
+#### 高精除
 
 ```cpp
 vector<int> div(vector<int> &A, int b, int &r)
@@ -512,7 +403,7 @@ int main()
 
 ### 背包DP
 - 公式为f[i][j] = max(f[i][j], f[i - 1][j - v[i]] + w[i]]);意义为取i个物品容量不超过j的最大价值，因为只有i和i-1两层需要使用，可以通过控制遍历顺序来达到使用不同两层价值的目的，上一层为`j-v[i]`<当前层`j`，所以从大到小遍历，同时防止越界，j遍历到v[i]就停止。
-##### [01背包](https://www.acwing.com/problem/content/2/)
+#### [01背包](https://www.acwing.com/problem/content/2/)
 ```cpp
 int v[N], w[N], f[N];
 
@@ -529,7 +420,7 @@ int main(){
 }
 ```
 
-##### 完全背包
+#### 完全背包
 ```cpp
 int v[N], w[N], dp[N];
 
@@ -551,7 +442,7 @@ int main()
 
 ### 线性DP
 
-##### 最长上升子序列
+#### 最长上升子序列
 - 定义f[i]代表以第i个数结尾的最长上升子序列的长度，则f[i] = max(f[j]) + 1;`j = 0 ~ i - 1`也就是前`1 ~ i - 1`中的最长的子序列长度加一，同时为了保证是上升序列，要加上a[i] > a[j]的条件
 ```cpp
 int a[N], f[N];
@@ -575,7 +466,7 @@ int main(){
 }
 ```
 
-##### 最长公共子序列
+#### 最长公共子序列
 ```cpp
 char a[N], b[N];
 int f[N][N];
@@ -637,7 +528,7 @@ int main() {
 
 ### 树状数组
 
-##### 求父节点与子节点距离
+#### 求父节点与子节点距离
 - x + lowbit(x)能查找父节点
 - x - lowbit(x)能查找同级的上一个子节点，若为最后一个节点，则x变为0
 - 查找同级下一个子节点为x + (lowbit(x) >> 1)
@@ -645,7 +536,7 @@ int main() {
 #define lowbit(x) (x & (-x))
 ```
 
-##### 更新数组
+#### 更新数组
 ```cpp
 void update(int x, int value) {
 	a[x] += value;
@@ -656,7 +547,7 @@ void update(int x, int value) {
 }
 ```
 
-##### 前缀和
+#### 前缀和
 ```cpp
 int getsum(int x){
     int ans = 0;
@@ -668,7 +559,7 @@ int getsum(int x){
 }
 ```
 
-##### 找到区间最大值
+#### 找到区间最大值
 ```cpp
 void update(int x) {
 	while (x <= n) {
@@ -700,7 +591,7 @@ int main(){
 
 ### ST表
 - ST表可实现O(nlogn)的建立，O(1)的查找区间最值
-##### 查询
+#### 查询
 ```cpp
 int query(int l, int r){
 	int k = log2(r - l + 1);
@@ -708,7 +599,7 @@ int query(int l, int r){
 }
 ```
 
-##### 建立
+#### 建立
 - a[i][j]表示从i开始，总个数为$2^j$大小的区间的最大值，因此每个区间的递推公式可写成`a[i][j]=max(a[i][j - 1], a[i + (1 << (j - 1))][j - 1])`
 ```cpp
 for(int i = 1; i <= n; ++i) scanf("%d", &a[i][0]);
@@ -721,7 +612,7 @@ for(int i = 1; i <= sum; ++i)//sum为总数所占的二进制位数
 
 ### 线段树
 
-##### 豪华define套餐
+#### 豪华define套餐
 ```cpp
 #define Start 1, 1, n
 #define Mid (l + r >> 1)
@@ -731,7 +622,7 @@ for(int i = 1; i <= sum; ++i)//sum为总数所占的二进制位数
 #define Rson Rs, Mid + 1, r
 ```
 
-##### 建立
+#### 建立
 ` 初始化每个值为1
 ```cpp
 void build(int u, int l, int r) {
@@ -756,7 +647,7 @@ void build(int u, int l, int r) {
 }
 ```
 
-##### 更新父节点
+#### 更新父节点
 - 可根据线段树的需求更改子结点与父节点的关系
 - 父节点为子节点相乘
 ```cpp
@@ -771,7 +662,7 @@ void push_up(int u) {
 }
 ```
 
-##### 变更值
+#### 变更值
 ```cpp
 void update(int u, int x, int v) {
 	if (tree[u].l == tree[u].r) tree[u].v = max(tree[u].v, v);//找到叶子节点，更新子节点
@@ -784,7 +675,7 @@ void update(int u, int x, int v) {
 }
 ```
 
-##### 查询区间值
+#### 查询区间值
 ```cpp
 int query(int u, int l, int r) {
 	if (l <= tree[u].l && tree[u].r <= r) return tree[u].v;//当前区间为所招区间的子区间
@@ -796,7 +687,7 @@ int query(int u, int l, int r) {
 }
 ```
 
-##### 区间添加
+#### 区间添加
 ```cpp
 int a[N];
 LL tr[N * 4], lazy[N * 4];
@@ -831,7 +722,7 @@ LL query(int u, int l, int r, int x, int y) {
 }
 ```
 
-##### 区间加和乘混合
+#### 区间加和乘混合
 - 将计数操作统一到加的lazy数组，如果出现查询操作，先乘后加
 ```cpp
 int a[N], p;
@@ -1172,7 +1063,7 @@ void find(num* head, int k){
 ---
 ---
 ## STL
-##### map & vector梦幻联动
+### map & vector梦幻联动
 ```cpp
 map <vector<int>, int> m;
 
@@ -1187,18 +1078,18 @@ sort(v.begin(), v.end());
 //排序vector按照每个元素字典序排序
 ```
 
-##### lower_bound
+### lower_bound
 - 返回第一个大于等于查找值的位置
 - `lower_bound(begin, end, key);`
 
-##### upper_bound
+### upper_bound
 - 返回第一个大于查找值的位置
 - `upper_bound(begin, end, key);`
 
-##### string
+### string
 - `substr(起始下标， 长度(不写为到结尾))`
 
-##### next_permutation
+### next_permutation
 - 进行下一次全排列（包括string）
 - `next_permutation(数组首地址，数组尾地址)`
 
@@ -1306,7 +1197,7 @@ ULL get(ULL h[], int l, int r){
 }
 ```
 
-##### 快速比较子串
+#### 快速比较子串
 - [字符串哈希](#https://www.acwing.com/activity/content/problem/content/891/) 
 ```cpp
 const int N = 1e5 + 10, P = 131;
@@ -1341,10 +1232,10 @@ int main() {
 ### KMP
 - 快速查找子串位置的优化算法
 
-##### 时间复杂度
+#### 时间复杂度
 - O(m + n)
   
-##### 创建next数组
+#### 创建next数组
 ```cpp
 //经过跳转到字符串中间，减少了从头开始匹配的时间，next数组标记当前字符串匹配失败后应该返回的上一位置
 for(int i = 2, j = 0; i <= n; ++i){
@@ -1359,7 +1250,7 @@ for(int i = 2, j = 0; i <= n; ++i){
 }
 ```
 
-##### 输出子串位置
+#### 输出子串位置
 ```cpp
 for(int i = 1, j = 0; i <= m; ++i){//这里从1开始为了i和j + 1重合起点
     while(j && s[i] != p[j + 1]) j = ne[j];//如果匹配失败，j返回上一个节点
@@ -1371,7 +1262,7 @@ for(int i = 1, j = 0; i <= m; ++i){//这里从1开始为了i和j + 1重合起点
 }
 ```
 
-##### 应用
+#### 应用
 - 查找前后缀相同的所有子串
   - 例如`abadefaba`的`aba`和`a`
   - 原理：以上为例，next为`001000123`，则回溯后回到第三位，因为前缀的aba和后缀的aba相同，则第三位的a可视为最后一位的a，即子串数加一
@@ -1536,7 +1427,7 @@ void bfs(int k){
 ***[返回目录](#目录)***
 
 ### 最短路
-##### Dijkstra算法
+#### Dijkstra算法
 
 [Dijkstra算法Ⅰ](https://www.acwing.com/problem/content/851/)
 map数组存储边，dist数组存储从1到各个点的最短路径，st标记是否成为最短路
@@ -1564,7 +1455,7 @@ int dijkstra()
 }
 ```
 
-##### Floyd算法
+#### Floyd算法
 
 操作后d[i][j]为最短路
 ```cpp
@@ -1598,7 +1489,7 @@ if(dist[n] > 0x3f3f3f3f / 2) cout << "impossible" << endl;
 else cout << dist[n] << endl;
 ```
 
-##### spfa算法
+#### spfa算法
   - bellman-ford队列优化版
 ```cpp
 int spfa(){
@@ -1680,7 +1571,7 @@ for (int j = 1; j <= k; j++) {
 
 ### 二分图
 
-##### 染色法判断
+#### 染色法判断
 - 遍历所有点寻找未染色的点开始dfs
 - 从一个点开始向其他点染色，如果未染色就染不一样的颜色，如果有颜色，判断颜色是否不同
 ```cpp
@@ -1721,7 +1612,7 @@ int main() {
 }
 ```
 
-##### 匈牙利算法
+#### 匈牙利算法
 - 求二分图内最多有多少边连接左右图独立（未被其他边连接）两个点
 - 遍历左图的所有点
 - 每次初始化所有点未走过
@@ -2172,7 +2063,7 @@ int LCA(int x, int y) {//LCA本体算法
 ---
 ---
 ## A*算法
-##### 普通A*
+### 普通A*
 - 添加一个估价函数evaluate(), 返回一个到达终点的最小可能值，当估价返回值小于设定值时才继续向下搜索
 
 ```cpp
@@ -2181,7 +2072,7 @@ int evaluate(){
 }
 ```
 
-##### IDA*
+### IDA*
 - 在A*的基础上添加了深度限制，遍历可能的设定深度(1~depth)，当当前深度和估价函数的和小于设定深度时才继续搜索
 - [骑士精神](#https://www.luogu.com.cn/problem/P2324)
 ```cpp
