@@ -28,6 +28,8 @@
                 {{ else }}
                 {{ .Content }}
                 {{ end }}
+
+                <!-- Page List -->
                 <div data-pagefind-ignore="all">
                     {{ range $index, $element := (where (where .Site.Pages "Type" "note") "IsPage" true) }}
                     <div class="post-preview">
@@ -69,9 +71,6 @@
                     <hr>
                     {{ end }}
                 </div>
-
-                {{/*  {{ partial "comments.html" . }}  */}}
-
             </div>
 
             {{ partial "sidebar.html" . }}
