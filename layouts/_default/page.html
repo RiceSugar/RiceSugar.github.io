@@ -1,0 +1,82 @@
+{{ define "main" }}
+<!-- Post Content -->
+{{ $pages := (where (where .Site.Pages "Type" "note") "IsPage" true) }}
+
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container">
+                {{ if eq (.Param "multilingual") true }}
+                {{ partial "multilingual-sel.html" . }}
+
+                <!-- Chinese Version -->
+                <div class="zh post-container">
+                    {{$file := "/about/index-zh.md"}}
+                    {{ $file | readFile | markdownify}}
+                </div>
+
+                <!-- English Version -->
+                <div class="en post-container">
+                    {{ .Content }}
+                </div>
+                {{ else }}
+                {{ .Content }}
+                {{ end }}
+                <div data-pagefind-ignore="all">
+                    {{ range $index, $element := (where (where .Site.Pages "Type" "note") "IsPage" true) }}
+                    <div class="post-preview">
+                        <a href="{{ .Permalink }}">
+                            <h2 class="post-title">
+                                {{ .Title }}
+                            </h2>
+                            {{with .Params.subtitle }}
+                                <h3 class="post-subtitle">
+                                    {{ . }}
+                                </h3>
+                            {{ end }}
+                            <div class="post-content-preview">
+                                {{ with .Description }}
+                                    {{ . }}
+                                {{ else }}
+                                    {{ .Summary}}
+                                {{ end }}
+                            </div>
+                        </a>
+                        <p class="post-meta">
+                            {{ if .Params.metadata }}
+                                {{ range $index, $element := .Params.metadata }}
+                                    {{ if .link }}
+                                        <a href="{{ .link }}">{{ .text }}</a>
+                                    {{ else }}
+                                        {{ .text }}
+                                    {{ end }}
+                                {{ end }}
+                            {{ else }}
+                                {{ if .Params.author }}
+                                    {{ .Params.author }}
+                                {{ else }}
+                                    {{ .Site.Params.AuthorName }}
+                                {{ end }}
+                            {{ end }}
+                        </p>
+                    </div>
+                    <hr>
+                    {{ end }}
+                </div>
+
+                {{/*  {{ partial "comments.html" . }}  */}}
+
+            </div>
+
+            {{ partial "sidebar.html" . }}
+        </div>
+    </div>
+</article>
+
+{{ end }}

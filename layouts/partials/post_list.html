@@ -32,9 +32,9 @@
         {{ if .Params.author }}
             {{ .Params.author }}
         {{ else }}
-            {{ .Site.Title }}
+            {{ .Site.Params.AuthorName }}
         {{ end }} 
-        发布于 {{ dateFormat "2006 年 1 月 2 日, Monday" .Params.date }}
+        发布于 {{ dateFormat "2006 年 1 月 2 日, Monday" .Params.date}}
         <!-- Don't show "Last Modified on" if update happened on the same day. -->
         {{ if (and (not .Lastmod.IsZero) (not (eq (dateFormat "2006-01-02" .Lastmod) (dateFormat "2006-01-02" .Date)))) }}
             <br>上次修改于 {{ dateFormat "2006 年 1 月 2 日, Monday" .Params.Lastmod}}

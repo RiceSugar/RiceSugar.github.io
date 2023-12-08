@@ -4,7 +4,7 @@ theme = 'hugo-theme-cleanwhite'
 languageCode = "zh-cn"
 
 [params]
-  AuthorName = 'RiceSugar'
+  AuthorName = '米糖'
   GitHubUser = 'RiceSugar'
   Subtitle = '哦耶！'
   header_image = "img/home-bg.jpg"
