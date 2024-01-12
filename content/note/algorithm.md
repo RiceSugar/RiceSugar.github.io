@@ -1,7 +1,7 @@
 ---
 title: "算法笔记"
-description: "学习算法记录的笔记"
-tags: [ "Algorithm" , "Note"]
+tags: [ "Algorithm", "Note", "Cpp"]
+description: "使用C++，包括一些基础算法：排序，搜索，字符串，STL，树，图，求质数等"
 date: 2022-04-14
 slug: "algorithm-note"
 ---

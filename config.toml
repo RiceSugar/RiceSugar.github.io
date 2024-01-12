@@ -23,7 +23,7 @@ languageCode = "zh-cn"
   # featured_condition_size = 1 
 
   #Enable wechat pay & alipay to allow readers send reward money if they like the articles 
-  reward = true 
+  reward = false
   reward_guide = "请作者干瓶可乐 :-P"
 
   friends = true
@@ -65,7 +65,7 @@ languageCode = "zh-cn"
   href =  "/archive/"
   [[params.addtional_menus]]
   title =  "学习笔记"
-  href =  "/notes/"
+  href =  "/note/"
   [[params.addtional_menus]]
   title =  "わたし?"
   href =  "/about/"

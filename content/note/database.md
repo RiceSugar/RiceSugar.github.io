@@ -1,8 +1,8 @@
 ---
-title: "MySQL数据库"
-description: "学习MySQL的笔记"
+title: "数据库笔记"
 tags: [ "MySQL", "Note"]
 date: 2023-02-28
+description: "描述了MySQL数据库的基础语法，含有增删改查，外键，视图，游标，存储过程，事务等知识"
 slug: "database-note"
 ---
 #### 创建数据库

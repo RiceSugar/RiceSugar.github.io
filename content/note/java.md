@@ -1,8 +1,8 @@
 ---
 title: "Java笔记"
-description: "学习Java的笔记"
 tags: [ "Java", "Note" ]
 date: 2022-04-14
+description: "含有Java的编译知识，以及一些和其他语言不同的注意事项"
 slug: "java-note"
 ---
 

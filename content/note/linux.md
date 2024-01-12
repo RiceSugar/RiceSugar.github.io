@@ -1,8 +1,8 @@
 ---
 title: "Linux笔记"
-description: "学习Linux的笔记"
 tags: [ "Linux" , "Note" ]
 date: 2022-04-14
+description: "包括Linux的命令，C++文件的编译知识和方法"
 slug: "linux-note"
 ---
 
