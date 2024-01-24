@@ -1,7 +1,7 @@
 ---
 title: "中文文案排版指北"
 description: "如何使你的排版更加美观"
-tags: [ "Chinese", "Guideline", "Copywriting" ]
+tags: [ "Chinese", "Guideline", "Copywriting", "Post" ]
 date: 2024-01-12
 author: "GitHub"
 slug: "chinese-copywriting-guidelines"
