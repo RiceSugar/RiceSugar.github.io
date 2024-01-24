@@ -1295,11 +1295,20 @@ border、border-width、border-style、border-color 都是复合属性，我们�
   - `for(i in arr){}`等效于`for(var i = 0; i < arr.length; i++){}`
 
 ## 函数
-```
+```js
 function 函数名(参数){
   ...
   return 返回值;
 }
+```
+### 链式调用
+如果返回值为一个函数，则可以继续通过括号当作函数传参调用
+```js
+function f(...args){
+  return (...arg1) => arg1.length ? f(args, arg1) : `参数：${args.join(',')}`;
+}
+
+f(param1)(param2)(param3)();
 ```
 
 ## 数组
@@ -1324,6 +1333,8 @@ function 函数名(参数){
 - `str.charAt(index);`获取指定下标的字符
 - `str.substring(start,end);`获取指定下标区间内的字符
 - `str.replace(oldstr,newstr);`替换部分字符串
+  - `oldstr`部分可使用正则表达
+  - `str.replace(regex, (match, offset) => {return newstr});`获取偏移量和自定义替换结果
 - `str.split("分隔符");`分割字符串成数组
 - `str.indexOf(str);`查找str首次出现的下标
 
@@ -1768,4 +1779,200 @@ function isEmptyObject(obj) {
 function isEmptyObject(obj) {
   return Object.keys(obj || []).length === 0;
 }
+```
+
+## this
+### 全局中的函数
+全局直接调用的函数或语句的 this 指向 window
+- 在严格模式下函数指向的 this为 undefined
+
+### 对象中的函数
+#### 调用对象中的函数中使用 this，指向对象本身
+```js
+const obj = {
+  a: 1,
+  fn() {
+    console.log("this :>> ", this); // 输出 obj
+    console.log("this.a :>> ", this.a); // 输出 1
+  },
+};
+obj.fn();
+```
+#### 返回值为函数，则 this 指向调用函数的主体
+```js
+const obj = {
+  a: 1,
+  fn() {
+    return function () {
+      console.log("this :>> ", this); // 输出 window
+      console.log("this.a :>> ", this.a); // 输出 100
+    };
+  },
+};
+var a = 100;
+obj.fn()();//指向window
+```
+```js
+const o1 = {
+  text: "o1",
+  fn() {
+    return this.text;
+  },
+};
+
+const o2 = {
+  text: "o2",
+  fn() {
+    return o1.fn();
+  },
+};
+
+const o3 = {
+  text: "o3",
+  fn() {
+    var fn = o1.fn;
+    return fn();
+  },
+};
+
+console.log(o1.fn()); // o1
+console.log(o2.fn()); // o1
+// 等同于执行o1.fn()
+console.log(o3.fn()); // undefined
+// 等同于复制o1函数执行过程并返回，也就是由window来执行该函数 
+```
+```js
+function foo() {
+  return () => {
+    console.log(this.a);
+  };
+}
+
+const obj1 = {
+  a: 2,
+};
+
+const obj2 = {
+  a: 3,
+};
+
+const bar = foo.call(obj1);
+// 正常调用call函数，绑定obj1的值，返回一个绑定后的箭头函数
+bar.call(obj2); // 输出2
+// bar中存在已经绑定过的箭头函数，箭头函数不能修改绑定，所以输出obj1的值
+```
+
+
+##### 解决方法
+- ES6 之前使用新变量存储当前 this，不调用函数中 this
+```js
+const obj = {
+  a: 1,
+  fn() {
+    const _this = this;
+    return function () {
+      console.log("this :>> ", _this); // 输出 obj
+      console.log("this.a :>> ", _this.a); // 输出 1
+    };
+  },
+};
+obj.fn()();
+```
+- ES6之后使用匿名函数解决，匿名函数只会从自己的作用域链的上一层继承 this
+```js
+const obj = {
+  a: 1,
+  fn() {
+    return () => {
+      console.log("this :>> ", this); // 输出 obj
+      console.log("this.a :>> ", this.a); // 输出 1
+    };
+  },
+};
+obj.fn()();
+```
+### 构造函数中的 this
+#### 如果返回值是一个对象，this 指向返回值的对象，否则 this 指向函数新建的实例
+```js
+function Person(name) {
+  this.name = name;
+}
+const p = new Person("zhangsan");
+console.log(p.name); // 'zhangsan'
+```
+```js
+function Person(name) {
+  this.name = name;
+  return {
+    name: "xxx",
+  };
+}
+const p = new Person("zhangsan");
+console.log(p.name); // 'xxx'
+```
+```js
+function Person(name) {
+  this.name = name;
+  return {};
+}
+const p = new Person("zhangsan");
+console.log(p.name); // 'undefined'
+```
+
+#### 如果返回值不是一个对象，this 还是指向实例本身
+```js
+function Person(name) {
+  this.name = name;
+  return 123;
+}
+const p = new Person("zhangsan");
+console.log(p.name); // 'zhangsan'
+```
+
+### 修改函数上下文的 this
+#### call 方法
+使用方法`函数名.call(对象名，参数...)`，将该`该函数`在`该对象`上执行
+```js
+function fn() {
+  console.log(this.name);
+}
+
+const obj = {
+  name: "zhangsan",
+};
+fn.call(obj); // 指定 this 为 obj，输出 'zhangsan'
+```
+
+#### apply 方法
+和 call 方法功能一样，参数不同，call 接受多个参数，apply 接受参数数组
+```js
+function add(x, y, z) {
+  return this.x + this.y + this.z;
+}
+
+const obj = {
+  x: 1,
+  y: 2,
+  z: 3,
+};
+
+console.log(add.call(obj, 1, 2, 3)); // 输出 6
+console.log(add.apply(obj, [1, 2, 3])); // 输出 6，只是传参形式不同而已
+```
+
+#### bind 方法
+和 call 区别为 bind 方法返回一个参数和this构造好的函数，但不会执行，需要手动执行
+```js
+function add(x, y, z) {
+  return this.x + this.y + this.z;
+}
+
+const obj = {
+  x: 1,
+  y: 2,
+  z: 3,
+};
+
+const add1 = add.bind(obj, 1, 2, 3); // bind 会返回一个新的函数
+console.log(add1()); // 执行新的函数，输出 6
 ```
