@@ -1242,6 +1242,24 @@ border、border-width、border-style、border-color 都是复合属性，我们�
 
 # JavaScript
 
+## 属性
+- classList: 用于获取或修改元素的类列表。
+  - 使用 add, remove 添加删除类名，使用 contains 检查是否包含某个类名，使用 toggle 切换类名。
+- id: 元素的唯一标识符。
+- style: 元素的内联样式属性。
+- src: 表示元素的来源，通常用于图像、音频和视频等媒体元素。
+- alt: 用于描述图像内容的替代文本，通常在图像无法加载时显示。
+- href: 表示链接的目标 URL，通常用于锚点（`<a>` 元素）和链接元素（`<link>`）。
+- value: 用于表单元素，表示用户输入或选择的值。
+- innerHTML: 元素的 HTML 内容，可以用于读取或写入元素的内容。
+- textContent: 元素的文本内容，不包括 HTML 标记，可以用于读取或写入元素的文本。
+- disabled: 用于禁用表单元素或按钮。
+- checked: 用于表示复选框或单选按钮是否被选中。
+- placeholder: 表单元素的占位符文本，通常在输入框中用于提供示例或说明。
+- width 和 height: 图像和表格等元素的宽度和高度。
+- type: 用于表单元素，表示输入框的类型（文本、密码、按钮等）。
+- min 和 max: 用于 `<input type="number">` 等元素，表示允许的最小和最大值。
+
 ## 本地存储
 - `localStorage` 永久存储
 - `sessionStorage` 仅在当前会话下有效
@@ -1325,6 +1343,7 @@ f(param1)(param2)(param3)();
 - `arr.includes(元素)`元素判断
 - `arr.toString()`值转换成字符串
 - `arr.indexOf(元素)`查找下标
+- `arr.reducer(function(acc, e){return acc}, init)` 逐个遍历数组元素，将每个元素都经过该函数处理，最后返回单个返回值。其内部函数的返回值将作为下一次调用该函数时的 acc 参数，init 为 acc 的初始值
 
 ## 字符串String
 - `str.length`获取长度
@@ -1778,6 +1797,22 @@ function isEmptyObject(obj) {
 ```js
 function isEmptyObject(obj) {
   return Object.keys(obj || []).length === 0;
+}
+```
+
+## 防抖函数
+使用该函数包装fn函数，当fn被多次调用后，只会在最后一次调用后的delay秒后运行
+```js
+function debounce(fn, delay = 0) {
+  // 返回一个新的防抖函数
+  // 即使函数在 delay 时间段内多次被调用，也只会在最后一次函数被调用的 delay 时间结束后执行
+  let time;
+  return function(args){
+    clearTimeout(time);
+    time = setTimeout(() => {
+      fn.call(this, args);//此处this没有具体指向，可能是指向调用fn的对象，也可能是使用call指定该函数的对象
+    }, delay);
+  }
 }
 ```
 
