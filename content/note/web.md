@@ -201,6 +201,7 @@ slug: "web-note"
 - radio 单选框
 - checkbox 复选框
   - value 值
+  - checked 默认勾选
 - file 文件上传
   - accept 限制上传的文件类型
 - reset 重置按钮
