@@ -1967,7 +1967,7 @@ console.log(p.name); // 'zhangsan'
 
 ### 修改函数上下文的 this
 #### call 方法
-使用方法`函数名.call(对象名，参数...)`，将该`该函数`在`该对象`上执行
+使用方法`fun.call(对象名，参数...)`，将`fun函数`在`该对象`上调用
 ```js
 function fn() {
   console.log(this.name);
