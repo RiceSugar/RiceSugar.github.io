@@ -2012,3 +2012,135 @@ const obj = {
 const add1 = add.bind(obj, 1, 2, 3); // bind 会返回一个新的函数
 console.log(add1()); // 执行新的函数，输出 6
 ```
+
+# Vue
+
+## 创建实例
+- 在 `head` 区域引入本地 `Vue.js` 或使用 `CDN` 引入 `Vue.js`
+```js
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.10"></script>
+```
+
+- 在 `script` 中使用以下语句创建 `Vue` 实例
+```js
+var app = new Vue({
+  // 选项
+  el: "#app", //绑定的 id 名
+  data: { //数据
+    class-to-add: "1111",
+    url: "https://www.lanqiao.cn",
+    isChecked: true
+  },
+});
+```
+
+## 插入文本
+
+- 使用双大括号进行插入数据
+```html
+<div id="app">msg：{{msg}}</div>
+```
+
+- 加入 `v-once` 指令可使得插入数据为一次性不可更改
+```html
+<p v-once>msg：{{msg}}</p>
+```
+
+- 提供了完全的 `JavaScript` 表达式支持
+```html
+<p>num + 24 = {{num + 24}}</p>
+<!-- 三元表达式 -->
+<p>Are you ok? {{ok ? 'I am ok !':'no'}}</p>
+<!-- 对象方法直接调用 -->
+<p>名字倒过来写：{{name.split('').reverse().join('')}}</p>
+<!-- 属性值运算操作 -->
+<p v-bind:class="'col'+colNum">syl</p>
+```
+
+## 指令 Directives
+
+### 简单指令
+- 加入 `v-html` 指令可使得插入数据按照 `html` 格式显示
+```html
+<div id="app" v-html="msg"></div>
+```
+
+- 加入 `v-bind` 指令可以在标签上插入数据
+  - 缩写为 `:`
+  - 如果 `isChecked` 的值是 `null`、`undefined` 或 `false`，则 `checked` 特性甚至不会被包含在渲染出来的`<input>`元素中
+```html
+<div id="app">
+  <div v-bind:class="class-to-add"></div>
+  <div :class="class-to-add"></div>
+  <a v-bind:href="url">实验楼</a>
+  <input type="checkbox" v-bind:checked="isChecked"/>
+</div>
+```
+```html
+<script>
+  var app = new Vue({
+    el: "#app",
+    data: {
+      class-to-add: "1111",
+      url: "https://www.lanqiao.cn",
+      isChecked: true
+    },
+  });
+</script>
+```
+
+- 使用 `v-on` 指令，用于监听 `DOM` 事件
+  - 缩写为 `@`
+  - 指令中的属性可以为动态确定的
+```html
+<div id="app">
+  <p>我叫：{{name}}</p>
+  <!-- handleClick 使我们在实例 methods 中写的方法 -->
+  <button v-on:click="handleClick">点我</button>
+  <button @click="handleClick">点我</button>
+  <button v-on:[event]="handleClick">点我</button>
+</div>
+```
+```html
+<script>
+  var app = new Vue({
+    el: "#app",
+    data: {
+      name: "实验楼",
+      event: "click",
+    },
+    methods: {
+      // 实例方法对象
+      handleClick: function () {
+        this.name = this.name.split("").reverse().join("");
+      },
+    },
+  });
+</script>
+```
+
+### 修饰符
+修饰符是以点开头的特殊后缀，表明指令需要以一些特殊的方式被绑定
+- `.prevent` 修饰符会告知 `v-on` 指令对触发的事件调用 `event.preventDefault()`
+```html
+<div id="app">
+  <form action="/" v-on:submit.prevent="submit">
+    <button type="submit">提交</button>
+  </form>
+</div>
+```
+
+```html
+<script>
+  var app = new Vue({
+    el: "#app",
+    data: {},
+    methods: {
+      submit: function () {
+        console.log("成功提交！");
+      },
+    },
+  });
+</script>
+```
