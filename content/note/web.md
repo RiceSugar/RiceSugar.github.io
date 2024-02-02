@@ -1045,26 +1045,17 @@ border、border-width、border-style、border-color 都是复合属性，我们�
 
 ## position定位
   - `position`属性用于设置元素的定位类型
+    - static
     - relative（相对定位）
     - absolute（绝对定位）
     - fixed（固定定位）
-    - inherit（静态定位）
     - sticky（粘性定位）
 
-### fixed固定定位
-相对于浏览器窗口进行定位
-```html
-<style>
-  .cls {
-    position: fixed;
-    top: 100px;
-    right: 0;
-  }
-</style>
-```
+### static
+该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top, right, bottom, left 和 z-index 属性无效。
 
-### relative相对定位
-相对于其正常位置进行定位
+### relative
+该关键字下，元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）
 ```html
 <style>
   .cls {
@@ -1074,9 +1065,8 @@ border、border-width、border-style、border-color 都是复合属性，我们�
   }
 </style>
 ```
-
-### absolute绝对定位
-把元素精确地放在任意位置
+### absolute
+元素会被移出正常文档流，并不为元素预留空间，通过指定元素相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margins），且不会与其他边距合并。
 ```html
 <style>
   .cls {
@@ -1087,8 +1077,20 @@ border、border-width、border-style、border-color 都是复合属性，我们�
 </style>
 ```
 
-### sticky粘性定位
-在用户滚动页面时，元素在跨越特定阈值之前是相对定位的，一旦到达阈值，它就会变为固定定位，固定在父容器或视口的某个位置
+### fixed
+元素会被移出正常文档流，并不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变。打印时，元素会出现在的每页的固定位置。fixed 属性会创建新的层叠上下文。当元素祖先的 transform、perspective、filter 或 backdrop-filter 属性非 none 时，容器由视口改为该祖先。
+```html
+<style>
+  .cls {
+    position: fixed;
+    top: 100px;
+    right: 0;
+  }
+</style>
+```
+
+### sticky
+粘性定位可以被认为是相对定位和固定定位的混合。元素在跨越特定阈值前为相对定位，之后为固定定位，固定在父容器或视口的某个位置
 ```html
 <style>
   .cls {
@@ -1773,6 +1775,44 @@ console.log(obj.name); // 'lin'
 console.log(obj[name]); // 'xxx'
 ```
 
+## Proxy
+用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）
+```js
+var proxy = new Proxy(target, {
+  get(obj, key) { //当获取 target 内属性时会运行该函数
+    return obj[key];
+  },
+  set(obj, key, value) { //当设置 target 内属性时会运行该函数
+    obj[key] = value;
+    if (key === "age") {
+      if (value > 150) {
+        obj[key] = 150;
+      } else if (value < 0) {
+        obj[key] = 0;
+      }
+    }
+  }
+})
+```
+
+## filter
+创建给定数组一部分的浅拷贝，返回满足给定函数的所有元素
+- `arr.filter(callbackFn)`
+  - `callbackFn` 用于测试的函数
+```js
+const newArr = arr.filter(item => item > 0);
+```
+
+## map(Array内置函数)
+创建一个新数组，这个新数组由原数组中的每个元素都调用一次提供的函数后的返回值组成。
+- `map(callbackFn)`
+  - `callbackFn` 用于测试的函数
+```js
+const newArr = arr.filter(item => {
+    // item 处理
+    return item;
+  });
+```
 
 ## 判断对象是否为空
 - for
