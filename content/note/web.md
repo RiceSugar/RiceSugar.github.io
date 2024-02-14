@@ -1,12 +1,18 @@
 ---
-title: "Web笔记"
-tags: [ "Web" , "Note" , "HTML5" , "CSS" , "JavaScript" ]
+title: Web笔记
+tags:
+  - Web
+  - Note
+  - HTML5
+  - CSS
+  - JavaScript
 date: 2023-12-23
-description: "含有Web三件套（HTML5, CSS, JavaScript）的语法"
-slug: "web-note"
+description: 含有Web三件套（HTML5, CSS, JavaScript）的语法
+slug: web-note
 ---
 
-# 信息文件head
+# HTML
+## 信息文件head
 
 ```html
 <title> 定义页面标题内容
@@ -34,7 +40,7 @@ slug: "web-note"
 <meta charset="utf-8" />
 ```
 
-# 内容主体body
+## 内容主体body
 
 ## 元素类型
 ### 行级元素
@@ -700,15 +706,15 @@ p {
 ```
 
 ## 列表样式
-  - `list-style` 在一个声明中设置所有的列表属性
-  - `list-style-image`设置图像为列表项标志
-    - URL
-  - `list-style-position`设置列表中列表项标志的位置
-    - inside
-    - outside
-    - inherit
-  - `list-style-type`设置列表项标志的类型
-    - disc(默认)
+- `list-style` 在一个声明中设置所有的列表属性
+- `list-style-image`设置图像为列表项标志
+	- URL
+- `list-style-position`设置列表中列表项标志的位置
+	- inside
+	- outside
+	- inherit
+- `list-style-type`设置列表项标志的类型
+	- disc(默认)
     - circle(圆圈)
     - square
     - decimal
@@ -826,22 +832,22 @@ border、border-width、border-style、border-color 都是复合属性，我们�
 </body>
 ```
 ### flex布局
-  - flex-direction:指定了弹性子元素在父容器中的排列方向和顺序
-    - `row` 横向从左到右排列（左对齐），默认的排列方式
+- flex-direction:指定了弹性子元素在父容器中的排列方向和顺序
+	- `row` 横向从左到右排列（左对齐），默认的排列方式
     - `row-reverse` 反转横向排列（右对齐），从后往前排，最后一项排在最前面
     - `column` 纵向排列
     - `column-reverse` 反转纵向排列，从后往前排，最后一项排在最上面
-  - flex-wrap:属性用于指定弹性盒子的子元素换行方式
+- flex-wrap:属性用于指定弹性盒子的子元素换行方式
     - `nowrap` 默认， 弹性容器为单行该情况下弹性子项可能会溢出容器
     - `wrap`弹性容器为多行该情况下弹性子项溢出的部分会被放置到新行，子项内部会发生断行
     - `wrap-reverse` 反转wrap排列
-  - align-items:用来设置或检索弹性盒子元素在侧轴（纵轴）方向上的对齐方式
-    - `flex-start` 弹性盒子元素的侧轴（纵轴）起始位置的边界紧靠住该行的侧轴起始边界
+- align-items:用来设置或检索弹性盒子元素在侧轴（纵轴）方向上的对齐方式
+	- `flex-start` 弹性盒子元素的侧轴（纵轴）起始位置的边界紧靠住该行的侧轴起始边界
     - `flex-end` 弹性盒子元素的侧轴（纵轴）起始位置的边界紧靠住该行的侧轴结束边界
     - `center` 弹性盒子元素在该行的侧轴（纵轴）上居中放置
     - `baseline` 如弹性盒子元素的行内轴与侧轴为同一条，则该值与 flex-start 等效其它情况下，该值将参与基线对齐
     - `stretch` 如果指定侧轴大小的属性值为 auto，则其值会使项目的边距盒的尺寸尽可能接近所在行的尺寸，但同时会遵照 min/max-width/height 属性的限制
-  - align-content:用于控制多行的对齐方式，如果只有一行则不会起作用
+- align-content:用于控制多行的对齐方式，如果只有一行则不会起作用
     - `stretch` 默认各行将会伸展以占用剩余的空间
     - `flex-start` 各行向弹性盒容器的起始位置堆叠
     - `flex-end` 各行向弹性盒容器的结束位置堆叠
@@ -893,6 +899,7 @@ border、border-width、border-style、border-color 都是复合属性，我们�
   </div>
 </body>
 ```
+
 ```html
 <style>
   div {
@@ -916,6 +923,7 @@ border、border-width、border-style、border-color 都是复合属性，我们�
   </div>
 </body>
 ```
+
 ```html
 <style>
   div {
@@ -938,6 +946,7 @@ border、border-width、border-style、border-color 都是复合属性，我们�
   </div>
 </body>
 ```
+
 ```html
 <style>
   div {
@@ -1025,9 +1034,10 @@ border、border-width、border-style、border-color 都是复合属性，我们�
 
 
 ## float
-  - `float`属性用于设置元素浮动
-    - left（左浮动）
-    - right（右浮动）
+- `float`属性用于设置元素浮动
+	- left（左浮动）
+	- right（右浮动）
+
 ```html
 <style>
   img:first-child {
@@ -1250,6 +1260,9 @@ border、border-width、border-style、border-color 都是复合属性，我们�
   - 使用 add, remove 添加删除类名，使用 contains 检查是否包含某个类名，使用 toggle 切换类名。
 - id: 元素的唯一标识符。
 - style: 元素的内联样式属性。
+	- `visibility` 控制元素的可见性
+		- `hidden`
+		- `visible`
 - src: 表示元素的来源，通常用于图像、音频和视频等媒体元素。
 - alt: 用于描述图像内容的替代文本，通常在图像无法加载时显示。
 - href: 表示链接的目标 URL，通常用于锚点（`<a>` 元素）和链接元素（`<link>`）。
@@ -1359,6 +1372,43 @@ f(param1)(param2)(param3)();
   - `str.replace(regex, (match, offset) => {return newstr});`获取偏移量和自定义替换结果
 - `str.split("分隔符");`分割字符串成数组
 - `str.indexOf(str);`查找str首次出现的下标
+
+## 转换
+### String转数字
+- parseFloat(str)
+- parseFloat(str.match(/\d+\.\d+/)[0]);
+
+## 定时器
+- setInterval 设置每多长时间重复一次
+```js
+setInterval(function() {
+  console.log("Hello, world!");
+}, 1000);
+```
+
+- clearInterval 清除计时器
+
+```js
+// 定义一个周期性执行的函数
+function sayHello() {
+  console.log("Hello, world!");
+}
+
+// 每隔一秒执行一次 sayHello 函数
+var intervalID = setInterval(sayHello, 1000);
+
+// 5 秒后停止执行 sayHello 函数
+setTimeout(function() {
+  clearInterval(intervalID); // 停止周期性执行
+}, 5000);
+```
+
+- setTimeout 设置多长时间后执行一次
+```js
+setTimeout(function() {
+  console.log("Hello, world!");
+}, 3000);
+```
 
 ## 库
 ### Math
@@ -1684,6 +1734,8 @@ f(param1)(param2)(param3)();
 - `{n}` 匹配确定的 n 次
 - `{n,}` 至少匹配 n 次
 - `{n,m}` 最少匹配 n 次且最多匹配 m 次
+- `(...)` 捕获组
+- `(?:...)` 非捕获组，用于将内容打包成一组执行其它匹配操作
 
 ### 常用修饰符
 - `i`	执行对大小写不敏感的匹配。
@@ -1715,6 +1767,8 @@ f(param1)(param2)(param3)();
     //验证规则：5-10个字符@1个或多个以上字符，以com、net、org结尾
     var regExp = /^\w{5,10}@\w+\.(com|net|org)$/;
     var flag = regExp.test(email);
+    var match = regExp.exec(email);
+    console.log(match[0]);//输出匹配到的字符
     return flag;
   }
 </script>
