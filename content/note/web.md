@@ -1862,11 +1862,15 @@ const newArr = arr.filter(item => item > 0);
 - `map(callbackFn)`
   - `callbackFn` 用于测试的函数
 ```js
-const newArr = arr.filter(item => {
+const newArr = arr.map(item => {
     // item 处理
     return item;
   });
 ```
+
+###  `map`和 `filter` 区别
+- `map` 返回的数组每个元素由 `return` 的值组成
+- `filter` 返回的数组每个元素为原来的元素，是否存到新数组中由 `return`的布尔值确定
 
 ## 判断对象是否为空
 - for
@@ -2129,7 +2133,7 @@ var app = new Vue({
 });
 ```
 
-## 插入文本
+## 插入数据
 
 - 使用双大括号进行插入数据
 ```html
@@ -2237,4 +2241,170 @@ var app = new Vue({
     },
   });
 </script>
+```
+
+## 计算属性 computed
+当 `value` 改变时触发 `function`，是 **惰性** 的，当依赖数据发生改变时，才会触发计算，否则，它的值是上一次触发计算的缓存值
+
+>computed: {
+>	value: function(){};
+>}
+
+```html
+<body>
+  <div id="app">{{now}}</div>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {},
+      computed: {
+        now: function () {
+          return Date.now();
+        },
+      },
+    });
+  </script>
+</body>
+```
+
+### getter 和 setter
+
+>computed: {
+>	value: {
+>		get: function () {},
+>		set: function (newName) {},
+>	},
+>}
+
+```html
+<body>
+  <div id="app">
+    <p>firstName:{{firstName}}</p>
+    <p>lastName:{{lastName}}</p>
+    <p>全名是:{{fullName}}</p>
+    <button v-on:click="changeName">改姓</button>
+  </div>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        firstName: "王",
+        lastName: "花花",
+      },
+      methods: {
+        // changeName 定义一个方法改变 计算属性 fullName 的值
+        changeName: function () {
+          // 修改计算属性 fullName 等于李花花
+          this.fullName = "李花花";
+          // 上面一句等于触发了 fullName 属性的 setter
+        },
+      },
+      computed: {
+        fullName: {
+          // getter
+          get: function () {
+            return this.firstName + this.lastName;
+          },
+          // setter  直接改变计算属性 fullName 的值就可以触发 setter this.fullName='XX'
+          set: function (newName) {
+            var name = newName;
+            this.firstName = name.slice(0, 1); // 取新值的第一个字符
+            this.lastName = name.slice(1); // 从新值的第二个字符开始取值
+          },
+        },
+      },
+    });
+  </script>
+</body>
+```
+
+## 侦听属性 watch
+当 `value` 改变时触发 `function`，参数提供改变后的新值和改变前的旧值
+
+>watch: {
+>	value: function (newVal, oldVal) {}
+>}
+
+```html
+<body>
+  <div id="app">
+    <p>{{msg}}</p>
+    <!-- v-on:click 简写为 @click -->
+    <button @click="handleClick('hello syl')">改变msg</button>
+  </div>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        msg: "hello",
+      },
+      methods: {
+        // 改变 msg 的值
+        handleClick: function (val) {
+          this.msg = val;
+        },
+      },
+      // watch 监听属性
+      watch: {
+        // 监听新旧值  监听属性有两个参数，第一个新值，第二个旧值
+        msg: function (newVal, oldVal) {
+          alert("新值" + newVal + "----" + "旧值" + oldVal);
+        },
+      },
+    });
+  </script>
+</body>
+```
+
+- 通常来说能用计算属性代替就用计算属性代替，多大情况计算属性代码更精简，可读性更高
+
+## 过滤器 filters
+放在 **双花括号** 和 **v-bind 表达式** 中
+
+```html
+<body>
+  <div id="app">
+    <!-- toUpperCase   getString  为自定义的过滤器-->
+    <p>小写转换大写：过滤前：{{msg}} 过滤后： {{msg|toUpperCase}}</p>
+    <p>去除数字：过滤前：{{msg2}} 过滤后： {{msg2|getString}}</p>
+  </div>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        msg: "hello",
+        msg2: "1s2y3l",
+      },
+      filters: {
+        // toUpperCase 定义一个字符串转大写的过滤器
+        toUpperCase: function (val) {
+          return val.toUpperCase();
+        },
+        // getString 定义一个获取去除数字的过滤器
+        getString: function (val) {
+          let newVal = "";
+          val.split("").map(function (item) {
+	        // item 隐式转换为整数类型
+            if (9 >= item && item >= 0) {
+              return;
+            } else {
+              return (newVal += item);
+            }
+          });
+          return newVal;
+        },
+      },
+    });
+  </script>
+</body>
+```
+
+## 响应式
+
+```js
+let {value} = {...toRefs(data)} 
+// 单纯{...data} 没有响应式布局 ref的才可以直接value 
+// 所以通过torefs(data)转为ref响应式布局
+console.log({...toRefs(data)}) 
+console.log(data)
 ```
