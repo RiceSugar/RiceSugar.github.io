@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: about
 # multilingual: true
 ---
 # わたし?（我？）
