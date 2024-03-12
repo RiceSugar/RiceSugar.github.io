@@ -8,6 +8,7 @@ date: 2023-12-23
 description: 含有Vue的语法
 slug: vue-note
 ---
+
 # 创建实例
 
 - 在 `head` 区域引入本地 `Vue.js` 或使用 `CDN` 引入 `Vue.js`
@@ -831,6 +832,8 @@ Vue 中是虚拟 DOM，不太提倡直接进行原生 DOM 操作，会降低性�
 </body>
 ```
 
+### `keyup`相关
+
 在监听键盘事件时，我们经常需要检查详细的按键。Vue 允许为 v-on 在监听键盘事件时添加按键修饰符：
 
 - .enter
@@ -848,6 +851,9 @@ Vue 中是虚拟 DOM，不太提倡直接进行原生 DOM 操作，会降低性�
   <div id="app">
     <input type="text"
       v-on:keyup.enter="alert('你按了enter,确定输入完毕？')"/>
+    <!-- 支持键码 -->
+    <input type="text"
+	  v-on:keyup.13="alert('你按了enter,确定输入完毕？')" />
   </div>
   <script>
     var app = new Vue({
@@ -856,3 +862,285 @@ Vue 中是虚拟 DOM，不太提倡直接进行原生 DOM 操作，会降低性�
   </script>
 </body>
 ```
+
+### `click` 相关
+
+可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器。
+
+- .ctrl
+- .alt
+- .shift
+- .meta（windows 键）
+
+```html
+<body>
+  <div id="app">
+    <!-- 同时鼠标左击和按 ctrl 弹出提示 -->
+    <div @click.ctrl="alert('你同时按了鼠标点击和ctrl')">Do something</div>
+  </div>
+</body>
+```
+
+- `.exact`  精确按键修饰符，严格限定按下的按键
+
+```html
+<div id="app">
+  <!-- 即使 Alt 或 Shift 被一同按下时也会触发 -->
+  <button @click.ctrl="alert('你不单单只按了鼠标左键和 Ctrl键，同时按其他键我也可以触发')">A</button>
+  <!-- 有且只有 ctrl 键 + 鼠标左键 被按下的时候才触发 -->
+  <button @click.ctrl.exact="alert('你只按ctrl键+鼠标左键，才能触发我')">A</button>
+  <!-- 没有任何系统修饰符被按下的时候才触发 -->
+  <button @click.exact="alert('没有按任何系统修饰符')">A</button>
+</div>
+```
+
+限制处理函数仅响应特定的鼠标按钮
+
+- `.left`
+- `.right`
+- `.middle`
+
+```html
+<div id="app">
+  <button @click.left="alert('你按了鼠标左击键')">按钮</button>
+  <button @click.middle="alert('你按了鼠标滚轮')">按钮</button>
+  <button @click.right="alert('你按了鼠标右击键')">按钮</button>
+</div>
+```
+
+# v-model
+
+### 注意
+
+**注意一**：`v-model`  会忽略所有表单元素的  `value`、`checked`、`selected`  特性的初始值而总是将 Vue 实例的数据作为数据来源。直接给元素 value 赋值不会生效的，你应该通过 JavaScript 在组件的  `data`  选项中声明初始值。
+
+**注意二**：`v-model`  在内部使用不同的属性为不同的输入元素并抛出不同的事件
+
+- text 和 textarea 元素使用  `value`  属性和  `input`  事件（内部监听 input 事件）
+- checkbox 和 radio 使用  `checked`  属性和  `change`  事件（内部监听 change 事件）
+- select 字段将  `value`  作为 prop 并将  `change`  作为事件（内部监听 change 事件）
+
+**说明：** change 和 input 区别就是，input 实时更新数据，change 不是实时更新。
+
+## 文本
+- 单行文本
+使用 `v-model` 指令，在实例 data 中声明绑定的 message 数据项，即可完成数据双向绑定。
+```html
+<body>
+  <div id="app">
+    <input v-model="msg" placeholder="请输入..." />
+    <p>输入的是: {{ msg }}</p>
+  </div>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        msg: "",
+      },
+    });
+  </script>
+</body>
+```
+
+- 多行文本
+
+```html
+<body>
+  <div id="app">
+    <span>Multiline message is:</span>
+    <p style="white-space: pre-line;">{{ message }}</p>
+    <br/>
+    <textarea v-model="message" placeholder="add multiple lines"></textarea>
+  </div>
+  <script>
+    var vue = new Vue({
+      el: "#app",
+      data() {
+	    return {
+		    message: "",
+		};
+      },
+    });
+  </script>
+</body>
+```
+
+## 按钮
+checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑定项的值就为元素的 `value` 值
+
+- 单选按钮
+将单选按钮绑定到同一个 picked，即可完成数据绑定
+
+```html
+<body>
+  <div id="app">
+    <!-- 将单选按钮绑定到同一个 picked -->
+    <input type="radio" id="one" value="One" v-model="picked" />
+    <label for="one">One</label>
+    <br />
+    <input type="radio" id="two" value="Two" v-model="picked" />
+    <label for="two">Two</label>
+    <br />
+    <span>Picked: {{ picked }}</span>
+  </div>
+  <script>
+    var vue = new Vue({
+      el: "#app",
+      data() {
+		      return {
+			      picked: "",
+			};
+	    },
+    });
+  </script>
+</body>
+```
+
+## 复选框
+- 复选框绑定的是一个布尔值：`true` 和 `false`
+
+```html
+<body>
+  <div id="app">
+    <input type="checkbox" id="checkbox" v-model="checked" />
+    <label for="checkbox">{{ checked }}</label>
+  </div>
+  <script>
+    // 绑定布尔值
+    var vue = new Vue({
+      el: "#app",
+      data() {
+        return {
+          checked: false,
+        };
+      },
+    });
+  </script>
+</body>
+```
+
+- 把多个复选框，绑定到同一个数组，方便数据收集，此时数组里的值为`value`中的值
+
+```html
+<body>
+  <div id="app">
+    <input type="checkbox" id="syl1" value="syl1" v-model="checkedNames" />
+    <label for="syl1">syl1</label>
+    <input type="checkbox" id="syl2" value="syl2" v-model="checkedNames" />
+    <label for="syl2">syl2</label>
+    <input type="checkbox" id="syl3" value="syl3" v-model="checkedNames" />
+    <label for="syl3">syl3</label>
+    <br />
+    <span>Checked names: {{ checkedNames }}</span>
+  </div>
+  <script>
+    var vue = new Vue({
+      el: "#app",
+      data() {
+        return {
+          checkedNames: [],
+        };
+    },
+    });
+  </script>
+</body>
+```
+- 在标签中声明 `true-value="yes"` 和 `false-value="no"` 这两个属性，当选中时就是 true-value 属性指定的值，当未选中时就是 false-value 属性值（可设置为空）
+```html
+<body>
+  <div id="app">
+    <input
+      type="checkbox"
+      v-model="toggle"
+      true-value="yes"
+      false-value="no"
+    />
+    <p>toggle:{{toggle}}</p>
+  </div>
+</body>
+```
+
+## 选择框
+- 在 select 元素上使用 `v-model` 指令，可以绑定当前选中的 option
+```html
+<div id="app">
+  <!-- select 标签是绑定  数据项 selected -->
+  <select v-model="selected">
+    <option disabled value="">请选择</option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <span>Selected: {{ selected }}</span>
+</div>
+```
+
+- 选择框的值绑定，直接指定每个 `option` 的 `value`，可以是固定的，也可以是使用 `v-bind:value` 动态绑定的
+```html
+<div id="app">
+  <!-- 当选中第一个选项时，selected 为字符串 "abc" -->
+  <select v-model="selected">
+    <!-- 固定赋值value -->
+    <option value="abc">ABC</option>
+    <!-- 使用 v-bind 绑定值 -->
+    <option v-bind:value="optionValue">DEF</option>
+  </select>
+  <p>{{selected}}</p>
+</div>
+```
+
+## 修饰符
+- `.lazy` 修饰符，可以将抛出事件由 input 改为 change，使表单元素惰性更新，不实时更新。
+```html
+<body>
+  <div id="app">
+    <!--使用 .lazy 修饰符将文本框 抛出的事件改为 change 事件，不再实时更新，只有文本框失去焦点才更新数据 惰性更新 -->
+    <input v-model.lazy="msg" />
+    <p>{{msg}}</p>
+  </div>
+</body>
+```
+- `number`  修饰符，自动将用户的输入值转为数值类型，用户即使输入的是非数值类型，也会进行转换，无法转换时，会返回原始的字符串
+```html
+<div id="app">
+  <p>没有使用 .number 修饰符</p>
+  <input v-model="number1" type="number" />
+  <!-- 使用 typeof 对值类型检测 -->
+  <p>{{typeof(number1)}}</p>
+  <p>使用 .number 修饰符</p>
+  <input v-model.number="number2" type="number" />
+  <!-- 使用 typeof 对值类型检测 -->
+  <p>{{typeof(number2)}}</p>
+</div>
+```
+- `.trim` 修饰符，表单元素值首尾空格，自动过滤。
+```html
+<div id="app">
+  <input v-model.trim="msg" type="text" />
+  <p>首尾空格被过滤了：{{msg}}</p>
+</div>
+```
+
+# 组件
+## 全局组件
+`Vue.component()` 方法注册全局组件
+```html
+<body>
+  <div id="app">
+    <syl></syl>
+    <syl></syl>
+    <syl></syl>
+  </div>
+  <script>
+    // Vue.component(组件名字,template:{元素标签})
+    Vue.component("syl", {
+      template: "<h1>实验楼全局组件</h1>",
+    });
+    var app = new Vue({
+      el: "#app",
+    });
+  </script>
+</body>
+```
+
+## 局部组件
