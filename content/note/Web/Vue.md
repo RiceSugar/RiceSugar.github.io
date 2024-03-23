@@ -770,6 +770,8 @@ app.items.splice(indexOfItem, 1, newValue);
 
 # v-on
 
+> 给元素绑定事件监听器
+
 Vue 中是虚拟 DOM，不太提倡直接进行原生 DOM 操作，会降低性能。在 Vue 中可以使用  `v-on`  指令来操作 DOM 事件
 
 - 缩写：`@`
@@ -923,8 +925,10 @@ Vue 中是虚拟 DOM，不太提倡直接进行原生 DOM 操作，会降低性�
 **说明：** change 和 input 区别就是，input 实时更新数据，change 不是实时更新。
 
 ## 文本
+
 - 单行文本
-使用 `v-model` 指令，在实例 data 中声明绑定的 message 数据项，即可完成数据双向绑定。
+  使用  `v-model`  指令，在实例 data 中声明绑定的 message 数据项，即可完成数据双向绑定。
+
 ```html
 <body>
   <div id="app">
@@ -966,10 +970,11 @@ Vue 中是虚拟 DOM，不太提倡直接进行原生 DOM 操作，会降低性�
 ```
 
 ## 按钮
-checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑定项的值就为元素的 `value` 值
+
+checkbox 和 radio 使用  `checked`  属性，当选中时 data 中声明的绑定项的值就为元素的 `value` 值
 
 - 单选按钮
-将单选按钮绑定到同一个 picked，即可完成数据绑定
+  将单选按钮绑定到同一个 picked，即可完成数据绑定
 
 ```html
 <body>
@@ -997,6 +1002,7 @@ checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑
 ```
 
 ## 复选框
+
 - 复选框绑定的是一个布尔值：`true` 和 `false`
 
 ```html
@@ -1045,7 +1051,9 @@ checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑
   </script>
 </body>
 ```
-- 在标签中声明 `true-value="yes"` 和 `false-value="no"` 这两个属性，当选中时就是 true-value 属性指定的值，当未选中时就是 false-value 属性值（可设置为空）
+
+- 在标签中声明  `true-value="yes"`  和  `false-value="no"`  这两个属性，当选中时就是 true-value 属性指定的值，当未选中时就是 false-value 属性值（可设置为空）
+
 ```html
 <body>
   <div id="app">
@@ -1061,7 +1069,9 @@ checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑
 ```
 
 ## 选择框
-- 在 select 元素上使用 `v-model` 指令，可以绑定当前选中的 option
+
+- 在 select 元素上使用  `v-model`  指令，可以绑定当前选中的 option
+
 ```html
 <div id="app">
   <!-- select 标签是绑定  数据项 selected -->
@@ -1075,7 +1085,8 @@ checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑
 </div>
 ```
 
-- 选择框的值绑定，直接指定每个 `option` 的 `value`，可以是固定的，也可以是使用 `v-bind:value` 动态绑定的
+- 选择框的值绑定，直接指定每个  `option`  的  `value`，可以是固定的，也可以是使用  `v-bind:value`  动态绑定的
+
 ```html
 <div id="app">
   <!-- 当选中第一个选项时，selected 为字符串 "abc" -->
@@ -1090,7 +1101,9 @@ checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑
 ```
 
 ## 修饰符
-- `.lazy` 修饰符，可以将抛出事件由 input 改为 change，使表单元素惰性更新，不实时更新。
+
+- `.lazy`  修饰符，可以将抛出事件由 input 改为 change，使表单元素惰性更新，不实时更新。
+
 ```html
 <body>
   <div id="app">
@@ -1100,7 +1113,9 @@ checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑
   </div>
 </body>
 ```
+
 - `number`  修饰符，自动将用户的输入值转为数值类型，用户即使输入的是非数值类型，也会进行转换，无法转换时，会返回原始的字符串
+
 ```html
 <div id="app">
   <p>没有使用 .number 修饰符</p>
@@ -1113,7 +1128,9 @@ checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑
   <p>{{typeof(number2)}}</p>
 </div>
 ```
+
 - `.trim` 修饰符，表单元素值首尾空格，自动过滤。
+
 ```html
 <div id="app">
   <input v-model.trim="msg" type="text" />
@@ -1122,13 +1139,16 @@ checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑
 ```
 
 # 组件
+
 ## 全局组件
-`Vue.component()` 方法注册全局组件
+
+`Vue.component()`  方法注册全局组件
+
+- 如果`component`内仅仅传递字符串，则返回该字符串的组件
+
 ```html
 <body>
   <div id="app">
-    <syl></syl>
-    <syl></syl>
     <syl></syl>
   </div>
   <script>
@@ -1143,4 +1163,268 @@ checkbox 和 radio 使用 `checked` 属性，当选中时 data 中声明的绑
 </body>
 ```
 
+### 数据定义
+
+- `data` 部分必须是一个函数不然会影响其他组件
+
+```html
+<script>
+  // 注册一个全局可复用组件
+  Vue.component("button-counter", {
+    data() {
+      return {
+        counter: 0,
+      };
+    },
+    template: '<button @click="counter++">{{counter}}</button>',
+  });
+  var app = new Vue({
+    el: "#app",
+  });
+</script>
+```
+
 ## 局部组件
+
+在定义的 Vue 示例中才能使用的组件，下例为挂载到 `header` 上的组件，仅能在`header` 内部使用
+
+```html
+<div id="header">
+  <syl-header></syl-header>
+</div>
+<script>
+var header = new Vue({
+    el: "#header",
+    // 直接将组件内容放在components中
+    components: {
+      "syl-header": {
+        template: "<h2>我是局部组件header，只有我们父级才能调用</h2>",
+      },
+    },
+  });
+</script>
+```
+
+## 传递数据
+
+### 父组件向子组件传递数据
+
+```html
+<body>
+  <div id="app">
+    <title-component post-title="syl1"></title-component>
+    <title-component post-title="syl2"></title-component>
+    <title-component post-title="syl3"></title-component>
+  </div>
+  <script>
+    // 注册一个 title 组件，通过传入不同的 title 值，渲染不同的东西
+    // 组件上 传递的 props 属性名为 kebab-case（短横线分隔命名）的要转换为驼峰命名
+    Vue.component("title-component", {
+      props: ["postTitle"], // post-title 转换为驼峰命名
+      template: "<p>{{postTitle}}</p>",
+    });
+    var app = new Vue({
+      el: "#app",
+    });
+  </script>
+</body>
+```
+
+- 多项数据
+
+```html
+<body>
+  <div id="app">
+    <child-component
+      id="1"
+      title="hello syl"
+      content="you are welcom"
+    ></child-component>
+  </div>
+  <script>
+    // 注册一个子组件
+    Vue.component("child-component", {
+      // props 对象形式，传递属性值 进行类型检测，在脚手架环境中很有用
+      props: {
+        id: Number,
+        title: String,
+        content: String,
+      },
+      // 使用 es6 模板字符串书写格式更优美
+      template: "<div><p>id:{{id}}</p><p>title:{{title}}</p><p>content:{{content}}</p></div>",
+    });
+    var app = new Vue({
+      el: "#app",
+    });
+  </script>
+</body>
+```
+
+### 子组件向父组件传递数据
+
+子组件向父组件数据传递套路：
+
+第一步：子组件绑定事件。
+
+第二步：子组件绑定事件触发，使用  $emit 创建自定义事件并传入需要传值给父组件的数据。
+
+第三步：在子组件标签上 用 v-on 绑定自定义事件，在父组件中声明自定义事件处理的方法。
+
+第四步：父组件方法，接受自定义事件传的参数，就完成了整个由下到上的数据流。
+
+```html
+<body>
+  <div id="app">
+    <child-component v-on:send-msg="getMsg"></child-component>
+  </div>
+  <script>
+    // 定义一个子组件，template 绑定 click 事件
+    // 当 click 事件触发就使用 emit 自定义一个事件 send-msg，传入参数 “我是子组件请求与你通信”
+    // $emit('send-msg','我是子组件请求与你通信')
+    // 子组件标签上绑定自定义事件 send-msg，并绑定上父级的方法 getMsg，即可完成了子父组件通信
+    // <child-component v-on:send-msg="getMsg"></child-component>
+    Vue.component("child-component", {
+      template: `
+              <button v-on:click="$emit('send-msg','我是子组件请求与你通信')">
+              Click me
+              </button>
+              `,
+    });
+    var app = new Vue({
+      el: "#app",
+      methods: {
+        getMsg: function (msg) {
+          // 弹出子组件传递的信息
+          alert(msg);
+        },
+      },
+    });
+  </script>
+</body>
+```
+
+### 动态绑定
+
+> 使用 v-bind 动态绑定
+
+```html
+<body>
+  <div id="app">
+    <!-- 使用 v-bind 简写模式 动态绑定 props 值 -->
+    <child-component
+      :name="name"
+      :age="age"
+      :height="height"
+    ></child-component>
+    <child-component
+      :name="name+'2'"
+      :age="age+1"
+      :height="height"
+    ></child-component>
+  </div>
+  <script>
+    // 定义一个子组件
+    Vue.component("child-component", {
+      // 使用属性类型检测
+      props: {
+        name: String,
+        age: Number,
+        height: String,
+      },
+      template: `
+          <ul>
+              <li>{{name}}</li>
+              <li>{{age}}</li>
+              <li>{{height}}</li>
+          </ul>
+          `,
+    });
+    var app = new Vue({
+      el: "#app",
+      data() {
+        return {
+          name: "syl",
+          age: 20,
+          height: "180cm",
+        };
+      },
+    });
+  </script>
+</body>
+```
+
+# 生命周期
+
+- created 钩子函数内我们可以进行异步数据请求
+  [生命周期](https://doc.shiyanlou.com/document-uid940410labid10292timestamp1552640797492.png)
+
+```html
+<body>
+  <div id="app">
+    <button @click="handleClick">{{name}}</button>
+  </div>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data() {
+        return {
+          name: "syl",
+        };
+      },
+      methods: {
+        handleClick: function () {
+          this.name = "syl syl";
+        },
+      },
+      beforeCreate() {
+        alert(
+          "在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用"
+        );
+      },
+      created() {
+        alert(
+          "在实例创建完成后被立即调用,挂载阶段还没开始，$el 属性目前不可见"
+        );
+      },
+      beforeMount() {
+        alert("在挂载开始之前被调用：相关的 render 函数首次被调用");
+      },
+      mounted() {
+        alert("el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子");
+      },
+      beforeUpdate() {
+        alert("数据更新时调用");
+      },
+      updated() {
+        alert("组件 DOM 已经更新");
+      },
+      beforeDestroy() {},
+      destroyed() {},
+    });
+  </script>
+</body>
+```
+
+## 挂载[[Axios#使用方式|Axios]]
+
+```html
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            dataList: [],
+        },
+        methods: {
+            getData() {
+                axios.get('1.json')
+                    .then(res => {
+                        this.dataList = res.data;
+                    })
+            }
+        },
+        created() {
+            this.getData();
+        },
+    });
+</script>
+```
