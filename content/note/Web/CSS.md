@@ -8,6 +8,7 @@ date: 2023-12-23
 description: 关于CSS的语法
 slug: css-note
 ---
+
 # 选择器
 
 ## 标签选择器
@@ -849,6 +850,9 @@ border、border-width、border-style、border-color 都是复合属性，我们�
 - scale 缩放
   - scaleX 沿 X 轴缩放
   - scaleY 沿 Y 轴缩放
+- skew 倾斜
+  - skewX() 沿着 X 轴方向倾斜元素
+  - skewY() 沿着 Y 轴方向倾斜元素
 
 ```html
 <style>
