@@ -8,6 +8,7 @@ date: 2023-12-23
 description: 关于JavaScript的语法
 slug: javascript-note
 ---
+
 # 属性
 
 - classList: 用于获取或修改元素的类列表。
@@ -150,12 +151,24 @@ f(param1)(param2)(param3)();
 - `str.split("分隔符");`分割字符串成数组
 - `str.indexOf(str);`查找 str 首次出现的下标
 
-# `String` 和 `数字` 转换
+## `String` 相关转换
 
-## String 转数字
+### String 转数字
 
 - parseFloat(str)
 - parseFloat(str.match(/\d+\.\d+/)[0]);
+
+### 数字转 String
+
+- num.toString();
+
+### String 转 JSON
+
+- JSON.parse(str)
+
+### JSON 转 String
+
+- JSON.stringify(jsonObject)
 
 # 定时器
 
@@ -515,6 +528,47 @@ setTimeout(function() {
     };
   };
 </script>
+```
+
+## Fetch
+
+- 接受参数
+  - url
+  - 配置对象
+    - `method`：指定请求方法，如 GET、POST、PUT 等，默认为 "GET"
+    - `headers`：指定请求头，可以是一个 Headers 对象，也可以是一个包含键值对的普通对象
+    - `body`：指定请求体，可以是一个字符串、FormData、Blob、BufferSource、或者 ReadableStream 对象。
+    - `cache`：指定请求的缓存模式，如 "default"、"no-store"、"reload" 等。
+    - `keepalive`：指定是否启用 keepalive 功能，布尔值，默认为 false。
+
+```js
+const requestOptions = {
+  method: 'POST', // 设置请求方法为 POST
+  headers: {
+    'Content-Type': 'application/json', // 设置请求头为 JSON 格式
+    'Authorization': 'Bearer token123' // 设置授权头部信息
+  },
+  body: JSON.stringify({ // 设置请求主体的数据
+    username: 'example',
+    password: 'password123'
+  }),
+  cache: 'no-cache', // 控制请求的缓存行为
+};
+
+// 发起网络请求
+fetch('https://api.example.com/login', requestOptions)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
 ```
 
 # 正则表达式
