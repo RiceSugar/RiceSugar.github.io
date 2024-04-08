@@ -1208,6 +1208,7 @@ var header = new Vue({
 ## 传递数据
 
 ### 父组件向子组件传递数据
+- 父组件直接传递参数给子组件
 
 ```html
 <body>
@@ -1427,4 +1428,49 @@ var header = new Vue({
         },
     });
 </script>
+```
+
+# vue-router
+
+```html
+<body>
+  <div id="app">
+    <h1>路由的使用</h1>
+    
+    <p>
+      <!-- 使用 router-link 组件来导航 -->
+      <router-link to="/home">首页</router-link>
+      <router-link to="/hot">热门</router-link>
+      <router-link to="/class">分类</router-link>
+    </p>
+    
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
+    
+  </div>
+  
+  <script>
+    const Home = { template: "<div>首页</div>" };
+    const Hot = { template: "<div>热门</div>" };
+    const Class = { template: "<div>分类</div>" };
+    
+    // 定义路由
+    const routes = [
+      { path: "/home", component: Home },
+      { path: "/hot", component: Hot },
+      { path: "/class", component: Class },
+    ];
+    
+    // 创建 router 实例，然后传 routes 配置
+    const router = new VueRouter({
+      routes,
+    });
+    
+    // 创建和挂载根实例
+    const app = new Vue({
+      router,
+    }).$mount("#app");
+  </script>
+</body>
 ```
