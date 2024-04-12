@@ -86,6 +86,7 @@ slug: javascript-note
 
 - `for`遍历
   - `for(i in arr){}`等效于`for(var i = 0; i < arr.length; i++){}`
+  - `for(key in object)` 可以遍历对象中的键，可以通过`object[key]` 获取其中的对象
 
 # 函数
 
@@ -569,6 +570,23 @@ fetch('https://api.example.com/login', requestOptions)
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
   });
+```
+
+
+# 异步操作async
+- 使用`async`定义一个异步函数，使用`await`等待异步操作完成
+```js
+async function processData() {
+  try {
+    // 使用await关键字等待fetchData函数完成，并获取其返回值
+    const data = await fetchData();
+    console.log(data); // 打印获取到的数据
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+processData();
 ```
 
 # 正则表达式
