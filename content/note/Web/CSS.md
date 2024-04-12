@@ -340,9 +340,10 @@ slug: css-note
 - `text-overflow` 设置超长文本省略显示
   - `clip` 修剪文本
   - `ellipsis` 显示省略符号来代表被修剪的文本
-  - 需要加上正常使用
+  - 需要加上以下属性才可正常使用
     - overflow: hidden;
     - white-space: nowrap;
+    - display: block;
 
 ```html
 <style>
@@ -750,7 +751,37 @@ border、border-width、border-style、border-color 都是复合属性，我们�
 </body>
 ```
 
-# float
+## -webkit-box 布局
+
+- `-webkit-box-orient`指定盒子内子元素的排列方向
+  - `horizontal`（水平方向）
+  - `vertical`（垂直方向）
+- `-webkit-box-direction`：指定子元素的排列顺序
+  - `normal`（正常顺序）
+  - `reverse`（反向顺序）
+- `-webkit-box-pack`指定子元素在父容器中的对齐方式（水平方向）
+  - `start`（默认，从开头对齐）
+  - `end`（从结尾对齐）
+  - `center`（居中对齐）
+  - `justify`（两端对齐）
+  - `flex-start`（从开头对齐，与 `start` 相同）
+  - `flex-end`（从结尾对齐，与 `end` 相同）
+- `-webkit-box-align`指定子元素在父容器中的对齐方式（垂直方向）
+  - `start`（从开头对齐）
+  - `end`（从结尾对齐）
+  - `center`（居中对齐）
+  - `baseline`（基线对齐）
+  - `stretch`（默认，拉伸以适应容器高度）
+- `-webkit-box-flex`指定子元素在弹性盒子中的扩展比例
+  - 数值，默认为 0
+- `-webkit-line-clamp` 在限制高度的容器中控制多行文本的显示行数，并在超出指定行数时显示省略号
+	- 整数值，表示希望显示的文本行数
+	- 与下列属性同时使用才可正常显示
+		- `display: -webkit-box`
+		- `-webkit-box-orient: vertical; `
+		- `overflow: hidden;`
+
+# float 属性
 
 - `float`属性用于设置元素浮动
   - left（左浮动）
