@@ -818,7 +818,7 @@ int main() {
   - 适用于稠密图
 ```cpp
 int prim() {
-	int res = 0;;
+	int res = 0;
 	memset(dis, 0x3f, sizeof dis);
 	
 	for(int i = 0; i < n; ++i) {
@@ -1509,12 +1509,14 @@ int dijkstra()
 
 #### Floyd算法
 
-操作后d[i][j]为最短路
+操作后`d[i][j]`为最短路
 ```cpp
-for(int i = 0; i < n； ++i)
-	for(int j = 0; j < n; ++j)
-		for(int k = 0; k < n; ++k)
-			d[i][j] = (d[i][k] + d[k][j], d[i][j]);
+void floyd(){
+    for(int k = 1; k <= n; ++k)
+        for(int i = 1; i <= n; ++i)
+            for(int j = 1; j <= n; ++j)
+                dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j]);
+}
 ```
 
 - bellman-ford算法
