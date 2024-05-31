@@ -150,9 +150,9 @@ slug: css-note
 通过正则匹配元素
 
 - 选择元素 E，attr 为 E 的属性
-- `E[attr^=“xx”]`选择 attr 属性是以 xx 开头的任何字符
-- `E[attr^=“xx”]`选择 attr 属性是以 xx 结尾的任何字符
-- `E[attr^=“xx”]`选择 attr 属性是包含 xx 的任何字符
+- `E[attr^="xx"]`选择 attr 属性是以 xx 开头的任何字符
+- `E[attr$="xx"]`选择 attr 属性是以 xx 结尾的任何字符
+- `E[attr*="xx"]`选择 attr 属性是包含 xx 的任何字符
 
 ```html
 <style>
