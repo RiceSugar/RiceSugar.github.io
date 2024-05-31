@@ -103,16 +103,32 @@ while(m--){
 ---
 ### 二分
 
+#### 易懂版本
+```cpp
+int binary_search(int arr[], int l, int r, int x)
+{
+	int mid;
+	while (l <= r)
+    {
+        mid = l + r >> 1;
+		if(arr[mid] == x) return mid;
+        else if(arr[mid] > x) r = mid - 1;
+        else l = mid + 1;
+    }
+    return -1;
+}
+```
+
+#### 高效版本
 - 注：
-  - 若结果l = mid，则mid需要加1 
-  - 否则若l = mid + 1，则mid不需要加1 
-  - 若check为true时r = mid，则锁定区间为[left，mid)
-  - 相反，若为l = mid，则锁定区间为(mid, right]
-  - 总结来说：不满足条件直接等于mid加1减1，满足条件就等于mid继续分割直到相等
-- 这两个都是锁定存在的范围，是否存在需要再加if判断
+  - 若if-else部分l = mid，则mid需要加1 
+  - 否则若if-else部分l = mid + 1，则mid不需要加1 
+  - 若`check(mid)==true`时设置`r = mid`，则查找出的可能存在结果的区间为`[left，mid)`
+  - 相反，若`check(mid)==true`时设置`l = mid`，则查找出的可能存在结果的区间为`(mid, right]`
+- 这两个都是可能存在结果的范围，是否实际存在需要再加if判断
 
 
-#### 左边界
+> 左边界
 - 分割区间为[left, mid][mid + 1, right]
 ```cpp
 int bsearch_left(int l, int r)
@@ -127,7 +143,7 @@ int bsearch_left(int l, int r)
 }
 ```
 
-#### 右边界
+> 右边界
 - 分割区间为[left, mid - 1][mid, right]
 ```cpp
 int bsearch_right(int l, int r)
