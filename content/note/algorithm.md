@@ -911,6 +911,113 @@ void insert(){
 
 ***[返回目录](#目录)***
 
+### 二叉排序树
+- 若左子树非空，则左子树上所有节点的值均小于根节点的值
+- 若右子树非空，则右子树上所有节点的值均大于根节点的值
+- 左右子树也是一棵二叉排序树
+```cpp
+typedef struct node{
+	int val;
+	node *l, *r;
+}tree;
+
+tree* find(tree* root,const int& x){
+	if(root->val > x && root->l){
+		return find(root->l, x);
+	}else if(root->val < x && root->r){
+		return find(root->r, x);
+	}
+	return root;
+}
+
+tree* find(tree *root, const int &x, tree *&parent){
+	if(root->val > x && root->l){
+		parent = root;
+		return find(root->l, x, parent);
+	}else if(root->val < x && root->r){
+		parent = root;
+		return find(root->r, x, parent);
+	}
+	return root;
+}
+
+tree* create(int arr[], int len){
+	tree* root = nullptr;
+	for(int i = 0; i < len; ++i){
+		tree* newNode = new tree;
+		newNode->val = arr[i];
+		newNode->l = nullptr;
+		newNode->r = nullptr;
+		
+		if(root == nullptr){
+			root = newNode;
+			continue;
+		}
+		
+		tree* cur = find(root, arr[i]);
+		
+		if(cur->val < arr[i]){
+			cur->r = newNode;
+		}
+		else if(cur->val > arr[i]){
+			cur->l = newNode;
+		}
+		else{
+			puts("create error");
+		}
+	}
+	return root;
+}
+
+void print(tree* root){
+	if(root->l) print(root->l);
+	cout << root->val << " ";
+	if(root->r) print(root->r);
+}
+
+void del(tree *root,const int& x){
+	tree *parent = nullptr;
+	tree *cur = find(root, x, parent);
+	if(cur->l && cur->r){
+		tree *p_last = cur;
+		tree *p = cur->l;
+		while(p->r){
+			p_last = p;
+			p = p->r;
+		}
+		if(p_last == cur){
+			cur->val = cur->l->val;
+			cur->l = cur->l->l;
+		}
+		else{
+			cur->val = p->val;
+			p_last->r = p->l;
+		}
+		delete p;
+		return;
+	}
+	else if(cur->l){
+		if(parent == nullptr) root = cur->l;
+		else if(parent->l == cur) parent->l = cur->l;
+		else parent->r = cur->l;
+	}
+	else if(cur->r){
+		if(parent == nullptr) root = cur->r;
+		else if(parent->l == cur) parent->l = cur->r;
+		else parent->r = cur->r;
+	}
+	else{
+		if(parent == nullptr) root = nullptr;
+		else if(parent->l == cur) parent->l = nullptr;
+		else parent->r = nullptr;
+	}
+	delete cur;
+}
+```
+
+
+***[返回目录](#目录)***
+
 ### 栈
 
 #### 栈的应用
