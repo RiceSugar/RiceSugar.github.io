@@ -80,6 +80,7 @@ void down(int u){
 	int t = u;
 	if(Ls <= cnt && tr[Ls] < tr[t]) t = Ls;
 	if(Rs <= cnt && tr[Rs] < tr[t]) t = Rs;
+	//两次判断最终找到最小的子结点
 	if(u != t){
 		swap(tr[u], tr[t]);
 		down(t);
@@ -88,14 +89,15 @@ void down(int u){
 ```
 - 初始化
 ```cpp
-cnt = n;
 for(int i = n / 2; i ; --i) down(i);
+//i从非叶子结点开始下推，省一半时间
 ```
 - 输出
 ```cpp
+//输出前m个
 while(m--){
 	cout << tr[1] << " ";
-	tr[1] = tr[cnt--];
+	tr[1] = tr[n--];
 	down(1);
 }
 ```
